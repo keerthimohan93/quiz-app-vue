@@ -26,11 +26,11 @@
             <span>~</span>
             {{getQuestion(item.question)}}
           </li>
-          <li>
+          <!-- <li>
             <inputAnswers :nameProp="index" :valueProp="item.correct_answer" :dataProp="true"/>
-          </li>
-          <li v-for="(arrayItem) in item.incorrect_answers" v-bind:key="arrayItem">
-            <inputAnswers :nameProp="index" :valueProp="arrayItem" :dataProp="false"/>
+          </li>-->
+          <li v-for="(arrayItem) in item.answers" v-bind:key="arrayItem">
+            <inputAnswers :nameProp="index" :valueProp="arrayItem"/>
           </li>
           <br>
         </ul>
@@ -59,9 +59,10 @@ export default {
   methods: {
     submitQuiz: function(event) {
       const arr = [...this.optionsSelectedGetter];
+      const answersArray = [...this.getAnswerSet];
       let count = 0;
       arr.forEach(item => {
-        if (item.answer === "true") {
+        if (answersArray.includes(item.option)) {
           count += 1;
         }
       });
@@ -82,7 +83,8 @@ export default {
       optionsSelectedGetter: state => state.optionsSelected,
       getLoaderStatus: state => state.loader,
       getTimer: state => state.timer,
-      category: state => state.category
+      category: state => state.category,
+      getAnswerSet: state => state.answerSet
     })
   }
 };

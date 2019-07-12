@@ -8,16 +8,27 @@ import axios from 'axios';
 
 Vue.use(Vuex);
 
+// This helps to shuffle the elements of an array
+const shuffle = a => {
+  for (let i = a.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [a[i], a[j]] = [a[j], a[i]];
+  }
+  return a;
+};
+
 export const store = new Vuex.Store({
   state: {
     category: '',
     categoryStatus: false,
     quizDataResp: {},
     optionsSelected: [],
-    score: 0,
+    score: -1,
     payload: false,
     dataLoaded: false,
-    timer: 600
+    timer: 600,
+    loader: false,
+    answerSet: []
   },
   getters: {
     category: state => {
@@ -32,7 +43,8 @@ export const store = new Vuex.Store({
       return state.loader;
     },
     getDataLoaded: state => state.dataLoaded,
-    getTimer: state => state.timer
+    getTimer: state => state.timer,
+    getAnswerSet: state => state.answerSet
   },
   // Mutations should be always sync process
   mutations: {
@@ -54,6 +66,9 @@ export const store = new Vuex.Store({
     },
     setTimer: function(state, payload) {
       state.timer = payload;
+    },
+    correctAnsSet: function(state, payload) {
+      state.answerSet = payload;
     }
   },
   actions: {
@@ -124,8 +139,23 @@ export const store = new Vuex.Store({
           .get(url)
           .then(response => {
             const res = response.data.results;
-            commit('changeStoreData', res);
-            commit('submitScore', 0);
+            let wrongAns = [];
+            let totalAnsSet = [];
+            let correctAns = [];
+            Object.values(res).forEach((element, index) => {
+              wrongAns = [...element.incorrect_answers];
+              let tAns = [...wrongAns];
+              tAns.push(element.correct_answer);
+              correctAns.push(element.correct_answer);
+              var obj = {
+                question: element.question,
+                answers: shuffle(tAns)
+              };
+              totalAnsSet.push(obj);
+            });
+            commit('changeStoreData', totalAnsSet);
+            commit('correctAnsSet', correctAns);
+            commit('submitScore', -1);
             commit('setLoader', { value: false, dataLoad: true });
             commit('setTimer', 600);
             commit('countStatus', []);

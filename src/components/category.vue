@@ -99,6 +99,8 @@ export default {
 }
 .timer {
   position: fixed;
-  bottom: 50px;
+  bottom: 30px;
+  border-top: 1px dashed white;
+  width: inherit;
 }
 </style>

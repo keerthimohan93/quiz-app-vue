@@ -5,7 +5,6 @@
       type="radio"
       :name="nameProp"
       :value="valueProp"
-      :data-key="dataProp"
       v-on:click="submitOption($event)"
       class="check-custom"
     >
@@ -17,7 +16,7 @@
 import { mapState, mapGetters } from "vuex";
 export default {
   name: "inputAnswers",
-  props: ["nameProp", "valueProp", "dataProp"],
+  props: ["nameProp", "valueProp"],
   data() {
     return {
       // count: 0,

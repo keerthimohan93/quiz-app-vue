@@ -9,10 +9,10 @@
         </div>
       </div>
       <div id="info-data" class="columns column is-multiline is-three-quarter">
-        <div v-if="getScore === 0">
+        <div v-if="getScore < 0">
           <quizview/>
         </div>
-        <div v-if="getScore > 0">
+        <div v-if="getScore >= 0">
           <scoreCard :score="getScore"/>
         </div>
       </div>
