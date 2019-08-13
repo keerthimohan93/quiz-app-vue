@@ -4,6 +4,7 @@ const fs = require('fs');
 
 module.exports = {
   entry: './src/index.js',
+  publicPath: './src/assets',
   module: {
     rules: [
       { test: /\.js$/, use: 'babel-loader' },
