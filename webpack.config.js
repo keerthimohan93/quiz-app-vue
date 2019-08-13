@@ -1,13 +1,12 @@
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const VueLoaderPlugin = require('vue-loader/lib/plugin');
 const fs = require('fs');
-const path=require('path');
+const path = require('path');
 
 module.exports = {
   entry: './src/index.js',
   output: {
-    publicPath: './src/assets',
-    filename:path.join(__dirname+'dist/bundle.js');
+    publicPath: './src/assets'
   },
   module: {
     rules: [
