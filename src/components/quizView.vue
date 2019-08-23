@@ -15,15 +15,18 @@
         <p>
           <strong>Select a category to start the quiz</strong>
         </p>
-        <p class="disclaimer">Note: There will be 10 questions in each category</p>
+        <p
+          class="disclaimer"
+        >Note: There will be 10 questions in each category. Please answer all questions to submit the quiz.</p>
         <div v-if="getLoaderStatus === true" class="loader-custom">
-          <img src="src/assets/spinning.gif" alt="loader">
+          <!-- <img src="src/assets/spinning.gif" alt="loader"> -->
+          <p>Loading...</p>
         </div>
       </div>
       <div v-if="getTimer > 0 && getTimer <= 600" class="list-of-questions">
         <ul class="list-items" v-for="(item, index) in quizData" v-bind:key="item.question">
           <li class="question-item">
-            <span>~</span>
+            <span>{{Number(index)+1}}.</span>
             {{getQuestion(item.question)}}
           </li>
           <!-- <li>
@@ -36,7 +39,7 @@
         </ul>
         <button
           class="submit-btn"
-          v-if="Object.keys(quizData).length > 0"
+          v-if="Object.keys(quizData).length > 0 && (Object.keys(quizData).length === optionsSelectedGetter.length)"
           v-on:click="submitQuiz"
         >Submit</button>
       </div>
@@ -52,9 +55,12 @@
 import axios from "axios";
 import { mapState } from "vuex";
 import inputAnswers from "./inputAnswers.vue";
+import { func } from "prop-types";
 export default {
   data: function() {
-    return {};
+    return {
+      scroll: false
+    };
   },
   methods: {
     submitQuiz: function(event) {
@@ -71,6 +77,19 @@ export default {
     },
     getQuestion: function(data) {
       return unescape(data);
+    },
+    scrollTop: function() {
+      this.scroll = false;
+      window.scrollTo(0, 0);
+    },
+    scrollFunc: function() {
+      window.onscroll = event => {
+        if (window.scrollY > 100 && !this.scroll) {
+          this.scroll = true;
+        } else {
+          this.scroll = false;
+        }
+      };
     }
   },
   components: {
@@ -86,6 +105,11 @@ export default {
       category: state => state.category,
       getAnswerSet: state => state.answerSet
     })
+  },
+  watch: {
+    quizData: function() {
+      this.scrollTop();
+    }
   }
 };
 </script>
@@ -94,13 +118,14 @@ export default {
 .submit-btn {
   border: none;
   color: white;
-  height: 40px;
-  width: 100px;
+  height: 45px;
+  width: 110px;
   background: #463fab;
   font-size: 16px;
   font-weight: bold;
   border-radius: 5px;
   cursor: pointer;
+  margin: 10px;
 }
 .question-item {
   font-weight: bold;

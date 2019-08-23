@@ -6,28 +6,66 @@
         v-bind:class="{'score-good':(score > 8), 'score-average':(score<8 && score>=5), 'score-bad':(score<5)}"
       >{{score}}</span> points!
     </div>
-    <div v-if="score >= 8" class="img-container">
-      <p class="score-text">Congratulations!!</p>
-      <img src="https://media.giphy.com/media/ehhuGD0nByYxO/giphy.gif" alt="congrats">
-    </div>
-    <div v-if="score < 8 && score >= 5" class="img-container">
-      <p class="score-text">Good Job!</p>
-      <img src="https://media.giphy.com/media/5hgYDDh5oqbmE4OKJ3/giphy.gif" alt="good job">
-    </div>
-    <div v-if="score < 5" class="img-container">
-      <p class="score-text">Better luck next time!</p>
-      <img
-        src="https://media.giphy.com/media/l3UcjBJUov1gCRGbS/giphy.gif"
-        alt="better luck next time"
-      >
+    <div class="correct-ans">
+      <p class="correct-answers-title">The list of correct answers:</p>
+      <correctAnswersList :data="dataSentAnswers"/>
     </div>
   </div>
 </template>
 
 <script>
+import correctAnswersList from "./correctAnswersList.vue";
+import { mapState } from "vuex";
 export default {
+  data: function() {
+    return {
+      dataSent: this.getAnswer,
+      dataSentAnswers: [],
+      options: []
+    };
+  },
   props: ["score"],
-  name: "scoreCard"
+  name: "scoreCard",
+  components: {
+    correctAnswersList: correctAnswersList
+  },
+  mounted() {
+    window.scrollTo(0, 0);
+  },
+  computed: {
+    ...mapState({
+      getCorrectQA: state => state.correctQAList,
+      optionsSelectedGetter: state => state.optionsSelected
+    }),
+    getAnswer: function() {
+      this.dataSent = this.getCorrectQA;
+    },
+    getOptionsSelected: function() {
+      this.options = this.optionsSelectedGetter;
+      // this.dataSentAnswers = [...this.dataSent];
+      if (this.dataSent && this.options) {
+        this.dataSent.forEach((item, key) => {
+          this.options.forEach((item1, key1) => {
+            if (key === item1.key) {
+              this.dataSentAnswers[key] = {
+                question: item.question,
+                correctAnswer: item.correctAnswer,
+                userAnswer: item1.option
+              };
+              if (item.correctAnswer === item1.option) {
+                this.dataSentAnswers[key].correct = true;
+              } else {
+                this.dataSentAnswers[key].correct = false;
+              }
+            }
+          });
+        });
+      }
+
+      return this.dataSentAnswers;
+    }
+  },
+  watch: { getAnswer: Function, getOptionsSelected: Function }
 };
 </script>
 
@@ -54,7 +92,11 @@ export default {
   width: 75%;
 }
 .score-container {
-  margin-top: 5%;
   padding-left: 15%;
+}
+.correct-answers-title {
+  font-weight: bold;
+  padding-top: 25px;
+  font-style: italic;
 }
 </style>

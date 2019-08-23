@@ -93,8 +93,6 @@ export default {
   padding: 10px;
 }
 .list-of-topics li:hover {
-  /* background: #5952c7;
-  transform: scale(1.1); */
   font-size: 22px;
 }
 .timer {
