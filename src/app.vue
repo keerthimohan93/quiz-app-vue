@@ -34,14 +34,12 @@ export default {
       alert: null,
       searchFilter: false,
       searchData: "",
-      scroll: false,
       loader: true,
       count: 0,
       routedComponent: false
     };
   },
   async mounted() {
-    this.scrollFunc();
     this.routedComponent = false;
     try {
       const response = await axios.get("https://sheetlabs.com/IND/vs");
@@ -72,18 +70,6 @@ export default {
   methods: {
     searchTermValue: function(value) {
       this.searchData = value;
-    },
-    scrollTop: function() {
-      window.scrollTo(0, 0);
-    },
-    scrollFunc: function() {
-      window.onscroll = event => {
-        if (window.scrollY > 100) {
-          this.scroll = true;
-        } else {
-          this.scroll = false;
-        }
-      };
     },
     clickHandler: function() {
       routedComponent = true;

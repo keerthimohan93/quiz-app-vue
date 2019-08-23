@@ -28,7 +28,8 @@ export const store = new Vuex.Store({
     dataLoaded: false,
     timer: 600,
     loader: false,
-    answerSet: []
+    answerSet: [],
+    correctQAList: []
   },
   getters: {
     category: state => {
@@ -44,7 +45,8 @@ export const store = new Vuex.Store({
     },
     getDataLoaded: state => state.dataLoaded,
     getTimer: state => state.timer,
-    getAnswerSet: state => state.answerSet
+    getAnswerSet: state => state.answerSet,
+    getCorrectQA: state => state.correctQAList
   },
   // Mutations should be always sync process
   mutations: {
@@ -69,6 +71,9 @@ export const store = new Vuex.Store({
     },
     correctAnsSet: function(state, payload) {
       state.answerSet = payload;
+    },
+    correctQA: function(state, payload) {
+      state.correctQAList = payload;
     }
   },
   actions: {
@@ -142,6 +147,7 @@ export const store = new Vuex.Store({
             let wrongAns = [];
             let totalAnsSet = [];
             let correctAns = [];
+            let totalCorrectQA = [];
             Object.values(res).forEach((element, index) => {
               wrongAns = [...element.incorrect_answers];
               let tAns = [...wrongAns];
@@ -151,10 +157,16 @@ export const store = new Vuex.Store({
                 question: element.question,
                 answers: shuffle(tAns)
               };
+              var cObj = {
+                question: element.question,
+                correctAnswer: element.correct_answer
+              };
               totalAnsSet.push(obj);
+              totalCorrectQA.push(cObj);
             });
             commit('changeStoreData', totalAnsSet);
             commit('correctAnsSet', correctAns);
+            commit('correctQA', totalCorrectQA);
             commit('submitScore', -1);
             commit('setLoader', { value: false, dataLoad: true });
             commit('setTimer', 600);
