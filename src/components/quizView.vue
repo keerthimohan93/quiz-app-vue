@@ -55,7 +55,6 @@
 import axios from "axios";
 import { mapState } from "vuex";
 import inputAnswers from "./inputAnswers.vue";
-import { func } from "prop-types";
 export default {
   data: function() {
     return {
