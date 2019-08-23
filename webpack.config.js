@@ -5,7 +5,6 @@ const path = require('path');
 
 module.exports = {
   entry: './src/index.js',
-  mode: process.env.NODE_ENV !== 'production' ? 'development' : 'production',
   module: {
     rules: [
       { test: /\.js$/, use: 'babel-loader' },
@@ -16,11 +15,6 @@ module.exports = {
         use: ['file-loader']
       }
     ]
-  },
-  output: {
-    filename: 'bundle.js',
-    path: path.resolve(__dirname, 'dist'),
-    publicPath: '/'
   },
   devServer: {
     open: true,
