@@ -1,6 +1,6 @@
 # A Simple Quiz App using Vue and VueX
 
-This is a simple chat app using Socket.IO, Node.Js and ExpressJS.
+This is a simple quiz app
 
 ## Getting Started
 
