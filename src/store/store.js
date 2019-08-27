@@ -29,7 +29,9 @@ export const store = new Vuex.Store({
     timer: 600,
     loader: false,
     answerSet: [],
-    correctQAList: []
+    correctQAList: [],
+    scoreArray: [],
+    showScoreBoard: false
   },
   getters: {
     category: state => {
@@ -46,7 +48,9 @@ export const store = new Vuex.Store({
     getDataLoaded: state => state.dataLoaded,
     getTimer: state => state.timer,
     getAnswerSet: state => state.answerSet,
-    getCorrectQA: state => state.correctQAList
+    getCorrectQA: state => state.correctQAList,
+    getShowScoreBoard: state => state.showScoreBoard,
+    getScoreArray: state => state.scoreArray
   },
   // Mutations should be always sync process
   mutations: {
@@ -60,7 +64,15 @@ export const store = new Vuex.Store({
       state.quizDataResp = Object.assign({}, payload);
     },
     submitScore: function(state, payload) {
-      state.score = payload;
+      state.score = payload.count;
+      if (payload.count !== -1) {
+        const newArr = state.scoreArray;
+        newArr.push({
+          count: payload.count,
+          category: payload.category
+        });
+        state.scoreArray = newArr;
+      }
     },
     setLoader: function(state, payload) {
       state.loader = payload.value;
@@ -74,6 +86,9 @@ export const store = new Vuex.Store({
     },
     correctQA: function(state, payload) {
       state.correctQAList = payload;
+    },
+    setShowScoreBoard: function(state, payload) {
+      state.showScoreBoard = payload;
     }
   },
   actions: {
@@ -91,6 +106,9 @@ export const store = new Vuex.Store({
     },
     storeTimerAction({ commit }, payload) {
       commit('setTimer', payload);
+    },
+    callScoreBoardAction({ commit }, payload) {
+      commit('setShowScoreBoard', payload);
     },
     callData({ commit }, payload) {
       var url;
@@ -167,10 +185,11 @@ export const store = new Vuex.Store({
             commit('changeStoreData', totalAnsSet);
             commit('correctAnsSet', correctAns);
             commit('correctQA', totalCorrectQA);
-            commit('submitScore', -1);
+            commit('submitScore', { count: -1, category: '' });
             commit('setLoader', { value: false, dataLoad: true });
             commit('setTimer', 600);
             commit('countStatus', []);
+            commit('setShowScoreBoard', false);
           })
           .catch(e => {
             console.log(e);

@@ -1,10 +1,13 @@
 <template>
   <div class="score-container">
-    <div class="score">
-      You scored
-      <span
-        v-bind:class="{'score-good':(score > 8), 'score-average':(score<8 && score>=5), 'score-bad':(score<5)}"
-      >{{score}}</span> points!
+    <div class="title-container">
+      <div class="score">
+        You scored
+        <span
+          v-bind:class="{'score-good':(score > 8), 'score-average':(score<8 && score>=5), 'score-bad':(score<5)}"
+        >{{score}}</span> points!
+      </div>
+      <div class="check-score-board" v-on:click="getScoreBoard">Check your score board</div>
     </div>
     <div class="correct-ans">
       <p class="correct-answers-title">The list of correct answers:</p>
@@ -15,7 +18,7 @@
 
 <script>
 import correctAnswersList from "./correctAnswersList.vue";
-import { mapState } from "vuex";
+import { mapActions, mapState } from "vuex";
 export default {
   data: function() {
     return {
@@ -28,6 +31,11 @@ export default {
   name: "scoreCard",
   components: {
     correctAnswersList: correctAnswersList
+  },
+  methods: {
+    getScoreBoard: function() {
+      this.$store.dispatch("callScoreBoardAction", true);
+    }
   },
   mounted() {
     window.scrollTo(0, 0);
@@ -74,7 +82,18 @@ export default {
 .score-text {
   font-weight: bold;
   font-size: 32px;
-  text-align: center;
+  text-align: left;
+  display: inline-block;
+}
+.check-score-board {
+  position: relative;
+  right: 45px;
+  cursor: pointer;
+  color: blue;
+  text-decoration: underline;
+}
+.check-score-board:hover {
+  color: #000;
 }
 .score-good {
   color: seagreen;
@@ -92,11 +111,16 @@ export default {
   width: 75%;
 }
 .score-container {
-  padding-left: 15%;
+  padding-left: 5%;
 }
 .correct-answers-title {
   font-weight: bold;
   padding-top: 25px;
   font-style: italic;
+}
+.title-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
 }
 </style>

@@ -71,7 +71,10 @@ export default {
           count += 1;
         }
       });
-      this.$store.dispatch("submitScoreAction", count);
+      this.$store.dispatch("submitScoreAction", {
+        count: count,
+        category: this.category
+      });
       this.$store.dispatch("storeTimerAction", 1000);
     },
     getQuestion: function(data) {
