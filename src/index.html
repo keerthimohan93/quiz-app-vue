@@ -2,7 +2,6 @@
 <html>
   <head>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Quiz App</title>
     <meta
       name="description"
       content="A simple quiz application having various interesting topics to choose from"
@@ -22,3 +21,17 @@
     <div id="app"></div>
   </body>
 </html>
+
+<script>
+  (function() {
+    console.log(1);
+    new Promise(res => res(2)).then(res => console.log(res));
+    setTimeout(() => {
+      console.log(3), 1000;
+    });
+    setTimeout(() => {
+      console.log(4), 500;
+    });
+    console.log(5);
+  })();
+</script>

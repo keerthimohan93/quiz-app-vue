@@ -110,7 +110,7 @@ body {
   color: #ecedec;
   font-weight: bold;
   font-size: 24px;
-  padding-left: 5%;
+  padding-left: 50px;
 }
 #info-data {
   margin: 20px 0;
