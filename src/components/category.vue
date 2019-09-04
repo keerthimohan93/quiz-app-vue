@@ -1,6 +1,6 @@
 <template>
   <div class="list-of-topics" v-on:click="loadQuizContents">
-    <ul>
+    <ul class="list-of-categories">
       <li>General Knowledge</li>
       <li>Movies</li>
       <li>Sports</li>
@@ -39,6 +39,13 @@ export default {
   methods: {
     loadQuizContents: function(event) {
       if (event) {
+        const elem = document.querySelectorAll(".list-of-categories li");
+        elem.forEach(item => {
+          if (item.classList.contains("highlight-text")) {
+            item.classList.remove("highlight-text");
+          }
+        });
+        event.target.classList.add("highlight-text");
         this.categoryType = event.target.innerText;
         this.$store.dispatch("callLoaderAction", {
           value: true
@@ -100,5 +107,9 @@ export default {
   bottom: 30px;
   border-top: 1px dashed white;
   width: inherit;
+}
+.highlight-text {
+  text-shadow: 1px 1px 1px white;
+  font-size: 24px;
 }
 </style>

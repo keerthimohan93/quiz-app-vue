@@ -3,7 +3,7 @@
     <div class="main-container columns">
       <div class="column is-one-quarter side-panel">
         <div class="side-panel-contents">
-          <h2 class="title-text">SIMPLE QUIZ APP</h2>
+          <h2 class="title-text">CATEGORIES</h2>
           <category/>
           <!-- <router-link to="/details" v-on:click="clickHandler">About</router-link> -->
         </div>
@@ -109,7 +109,7 @@ body {
   text-align: center;
   color: #ecedec;
   font-weight: bold;
-  font-size: 24px;
+  font-size: 30px;
   padding-left: 50px;
 }
 #info-data {

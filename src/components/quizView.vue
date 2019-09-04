@@ -13,11 +13,11 @@
       </div>
       <div v-if="Object.keys(quizData).length === 0">
         <p>
-          <strong>Select a category to start the quiz</strong>
+          <strong class="title-text-view">Please select a category to start the quiz!</strong>
         </p>
         <p
           class="disclaimer"
-        >Note: There will be 10 questions in each category. Please answer all questions to submit the quiz.</p>
+        >* Note: There will be 10 questions in each category. Please answer all questions to submit the quiz.</p>
         <div v-if="getLoaderStatus === true" class="loader-custom">
           <!-- <img src="src/assets/spinning.gif" alt="loader"> -->
           <p>Loading...</p>
@@ -137,6 +137,7 @@ export default {
 .disclaimer {
   padding-top: 10px;
   font-size: 16px;
+  color: red;
 }
 .loader-custom {
   width: 50px;
@@ -167,5 +168,11 @@ export default {
 }
 .list-of-questions {
   margin-top: 15px;
+}
+.sub-text {
+  padding-top: 10px;
+}
+.title-text-view {
+  font-size: 26px;
 }
 </style>
