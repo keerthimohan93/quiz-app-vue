@@ -1,0 +1,14 @@
+{
+  "name": "Vue Quiz App",
+  "short_name": "Quizzy",
+  "start_url": "index.html",
+  "display": "standalone",
+  "theme_color": "#463fab",
+  "background_color": "#fff",
+  "icons": [
+    {
+      "src": "https://d2gg9evh47fn9z.cloudfront.net/800px_COLOURBOX12310738.jpg",
+      "type": "image/jpg"
+    }
+  ]
+}
