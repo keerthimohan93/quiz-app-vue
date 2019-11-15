@@ -37,9 +37,8 @@ module.exports = {
         icons: [
           {
             src:
-              'https://thumbor.forbes.com/thumbor/144x344/https://blogs-images.forbes.com/zacks/files/2011/01/144px-Grain.svg_.jpg?width=960',
-            type: 'image/jpg',
-            size: 144 * 144
+              'https://user-images.githubusercontent.com/7110136/29002858-a09570d2-7ab4-11e7-8faa-5dd6d4458b0d.png',
+            type: 'image/jpg'
           }
         ]
       }
