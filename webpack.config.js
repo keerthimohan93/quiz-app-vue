@@ -1,7 +1,6 @@
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const VueLoaderPlugin = require('vue-loader/lib/plugin');
-const fs = require('fs');
-const path = require('path');
+var ManifestPlugin = require('webpack-manifest-plugin');
 
 module.exports = {
   entry: './src/index.js',
@@ -24,7 +23,24 @@ module.exports = {
     new HtmlWebpackPlugin({
       template: './src/index.html'
     }),
-    new VueLoaderPlugin()
+    new VueLoaderPlugin(),
+    new ManifestPlugin({
+      seed: {
+        name: 'Vue Quiz App',
+        short_name: 'Quizzy',
+        start_url: 'index.html',
+        display: 'standalone',
+        theme_color: '#463fab',
+        background_color: '#fff',
+        icons: [
+          {
+            src:
+              'https://d2gg9evh47fn9z.cloudfront.net/800px_COLOURBOX12310738.jpg',
+            type: 'image/jpg'
+          }
+        ]
+      }
+    })
   ],
   node: {
     fs: 'empty'

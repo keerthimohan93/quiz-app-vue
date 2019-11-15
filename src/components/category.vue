@@ -39,6 +39,7 @@ export default {
   methods: {
     loadQuizContents: function(event) {
       if (event) {
+        window.scrollTo(0, 0);
         const elem = document.querySelectorAll(".list-of-categories li");
         elem.forEach(item => {
           if (item.classList.contains("highlight-text")) {
@@ -109,7 +110,6 @@ export default {
   width: inherit;
 }
 .highlight-text {
-  text-shadow: 1px 1px 1px white;
   font-size: 24px;
 }
 </style>

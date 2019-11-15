@@ -20,7 +20,8 @@
     "moment": "^2.24.0",
     "vue-moment": "^4.0.0",
     "vue-router": "^3.0.6",
-    "vuex": "^3.1.1"
+    "vuex": "^3.1.1",
+    "webpack-manifest-plugin": "^2.2.0"
   },
   "devDependencies": {
     "@babel/core": "^7.4.5",
