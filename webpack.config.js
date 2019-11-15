@@ -32,11 +32,14 @@ module.exports = {
         display: 'standalone',
         theme_color: '#463fab',
         background_color: '#fff',
+        description:
+          'A simple quiz application having various interesting topics to choose from',
         icons: [
           {
             src:
-              'https://d2gg9evh47fn9z.cloudfront.net/800px_COLOURBOX12310738.jpg',
-            type: 'image/jpg'
+              'https://thumbor.forbes.com/thumbor/144x344/https://blogs-images.forbes.com/zacks/files/2011/01/144px-Grain.svg_.jpg?width=960',
+            type: 'image/jpg',
+            size: 144 * 144
           }
         ]
       }
